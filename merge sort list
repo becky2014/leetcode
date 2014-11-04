@@ -1,0 +1,81 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode p1 = l1;
+        ListNode p2 = l2;
+        ListNode preP1 = null;
+        ListNode preP2 = null;
+        ListNode temp = null;
+        if (p1==null && p2==null)
+            return null;
+        if (p1==null || p2==null)
+            return (p1==null) ? p2:p1;
+        
+            if(p1.val<=p2.val)               //insert all elements of p2 into p1
+            {
+                while(p2!=null)
+                {
+                    if(p1.val<=p2.val)
+                    {
+                        preP1 = p1;
+                        p1 = p1.next;
+                        if(p1==null)
+                        {
+                            preP1.next = p2;
+                            return l1;
+                            
+                        }
+                    }
+                    else
+                    {
+                        temp = p2.next;
+                        p2.next = p1;
+                        preP1.next = p2;
+                        preP1 = p2;
+                        p2 = temp;
+                   
+                        
+                    }
+                        
+                }
+                return l1;
+           }
+            else
+            {
+                while(p1!=null)   //insert all elements from p1 into p2
+                {
+                    if(p1.val>p2.val)
+                    {
+                        preP2 = p2;
+                        p2 = p2.next;
+                        if(p2==null){
+                            preP2.next = p1;
+                            
+                            return l2;
+                        }
+                            
+                    }
+                    else
+                    {
+                        temp = p1.next;
+                        p1.next = p2;
+                        preP2.next = p1;
+                        preP2 = p1;
+                        p1 = temp;
+                    }
+                }
+                return l2;
+            }
+       
+    }
+}
